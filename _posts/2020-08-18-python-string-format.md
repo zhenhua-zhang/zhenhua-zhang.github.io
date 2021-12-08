@@ -20,7 +20,7 @@ integer = '{} {}'.format(1, 2)
 string = '{1} {0}'.format('one', 'two')
 ```
 
-<!--more-->
+<!-- more -->
 
 ## 值的转换
 

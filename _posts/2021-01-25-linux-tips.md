@@ -6,6 +6,7 @@ categories: [Linux]
 ---
 
 ## 简介
+
 我平时的工作环境是Debian，用的最多的工具是终端，更确切地说是Neovim内置的终端模拟器。
 命令行工具是我最喜欢的工具类型，方便快捷，节省资源。
 当然我没有说图形化的工具不好，好看好玩儿的图形化工具我也很喜欢，只是觉得命令行更简洁。
@@ -23,7 +24,7 @@ categories: [Linux]
 
 <!-- more -->
 
-## 在二、八、十、十六进制之间快速反复横跳？
+## `bc`
 最近一段时间在研究各类压缩文件格式，涉及很多字节上的操作。
 常常需要在不同进制之间反复横跳，网页搜索太麻烦、自己写工具需要考虑太多。
 索性问谷歌怎么能实现命令行下快速反复横跳，谷歌也是爽快，直接给了答案。
@@ -50,7 +51,7 @@ $> bc <<<"ibase=16;obase=3;A"
 
 [^1]: [bc command in Linux with examples](https://www.geeksforgeeks.org/bc-command-linux-examples)
 
-## 用命令行录屏
+## `ffmpeg`
 俗话说的好，一图胜千言，一V胜千图。在演示某些操作时，使用GIF图片动态地展示该过程，方便理解和交流。
 在Linux下可以用`ffmpeg`命令实现，且可以通过不同的参数实现个性化的录制。
 
@@ -120,5 +121,40 @@ ssh -R localhost:10086:localhost:10010 user@server.hpc.com
 
 参考：  
 1. [玩转SSH端口转发](https://blog.fundebug.com/2017/04/24/ssh-port-forwarding)
+
+
+## `pytorch`
+
+### 调试`DataLoader`
+
+`PyTorch`的`DataLoader`是并行加载数据的利器，但在使用多个worker时没法用`pdb`调
+试，最简单的解决方法时吧worker的数量设置为0。当worker数量大于0时，`pytorch`会创
+建新的子进程来加载数据，而目前pdb无法直接调试多进程程序中的子进程。
+
+
+## `numpy`
+
+### 反向选择索引
+
+在索引numpy的array时，在获取目标索引所指向的数据后，我们可能还需要获取剩余的数据。这时可以使用下面的方法获取或索引该部分的数据。
+
+``` python
+import numpy as np
+
+# 用numpy.delete删除已有的索引
+a = np.arange(10)
+masks = np.arange([1, 3, 5, 7, 9])
+unmasks = np.delete(a, masks, None)
+a[unmasks]
+
+```
+
+
+## `command`
+
+有时为了方便，我们会添加命令的别名，并覆盖掉原来的命令。
+有时这会带来麻烦，比如当我们希望用原来的命令时。
+这时可以直接用命令的绝对路径，还可以用`command`命令，它会丢掉所有的别名，直接调
+用最原始的命令。
 
 <!-- vim: set nospell: -->
