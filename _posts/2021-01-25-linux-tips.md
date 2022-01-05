@@ -157,4 +157,12 @@ a[unmasks]
 这时可以直接用命令的绝对路径，还可以用`command`命令，它会丢掉所有的别名，直接调
 用最原始的命令。
 
+
+## 重置系统时间
+
+```
+$> sudo dpkg-reconfigure tzdata
+$> ls -sf /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+```
+
 <!-- vim: set nospell: -->
